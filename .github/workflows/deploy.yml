@@ -37,13 +37,10 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     
     - name: Deploy to Azure Container App
-      uses: azure/CLI@v1
+      uses: azure/container-apps-deploy-action@v1
       with:
-        inlineScript: |
-          # Create or update container app
-          az containerapp update \
-            --name tpappreparti \
-            --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-            --image ${{ secrets.DOCKERHUB_USERNAME }}/apprep:latest \
-            --target-port 8080 \
-            --env-vars "SPRING_PROFILES_ACTIVE=prod"
+        resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
+        containerAppName: tpappreparti
+        imageToDeploy: ${{ secrets.DOCKERHUB_USERNAME }}/apprep:latest
+        targetPort: 8080
+        environmentVariables: "SPRING_PROFILES_ACTIVE=prod"
