@@ -1,6 +1,5 @@
 package gl2.example.personnel.service;
 
-
 import gl2.example.personnel.model.Employee;
 import gl2.example.personnel.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +27,7 @@ public class EmployeeService {
     }
 
     public void deleteEmployee(Long id) {
-        employeeRepository.deleteById(id);
+        Optional<Employee> employee = employeeRepository.findById(id);
+        employee.ifPresent(emp -> employeeRepository.delete(emp));
     }
 }
