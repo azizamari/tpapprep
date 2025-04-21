@@ -27,7 +27,6 @@ public class EmployeeService {
     }
 
     public void deleteEmployee(Long id) {
-        Optional<Employee> employee = employeeRepository.findById(id);
-        employee.ifPresent(emp -> employeeRepository.delete(emp));
+        employeeRepository.deleteById(id);
     }
 }
